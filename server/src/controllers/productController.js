@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-
+import products from '../data/products.js';
 import Product from '../models/Product.js';
 import {
   parseProductQuery,
@@ -191,6 +191,23 @@ const deleteProduct = async (request, response, next) => {
     next(error);
   }
 };
+const seedProducts = async (request, response) => {
+  try {
+    await Product.deleteMany({});
+    const insertedProducts = await Product.insertMany(products);
+
+    return response.status(200).json({
+      success: true,
+      count: insertedProducts.length,
+      message: 'Products seeded successfully',
+    });
+  } catch (error) {
+    return response.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 
 export {
   createProduct,
@@ -200,4 +217,5 @@ export {
   getProductBySlug,
   getRelatedProducts,
   updateProduct,
+  seedProducts,
 };
