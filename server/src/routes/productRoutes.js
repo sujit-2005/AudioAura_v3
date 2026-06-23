@@ -17,7 +17,6 @@ const router = express.Router();
 router.get('/', getAllProducts);
 router.get('/slug/:slug', getProductBySlug);
 router.get('/slug/:slug/related', getRelatedProducts);
-router.get('/seed/data', seedProducts);
 router.get('/:id', getProductById);
 router.post('/', protect, adminOnly, createProduct);
 router.put('/:id', protect, adminOnly, updateProduct);
